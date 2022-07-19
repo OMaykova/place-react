@@ -4,9 +4,7 @@ const validator = require('validator');
 const User = require('../models/user');
 const { generateToken } = require('../helpers/jwt');
 
-require('dotenv').config();
-
-const { SALT_ROUND = 10 } = process.env;
+const SALT_ROUND = 10;
 const BadRequestError = require('../errors/bad-request-err');
 const NotFoundError = require('../errors/not-found-err');
 const MongoDuplicateError = require('../errors/mongo-duplicate-error');
