@@ -1,0 +1,8 @@
+.popup__tooltip-image-fail {
+  margin: 0 auto;
+  margin-top: 26px;
+  width: 120px;
+  height: 120px;
+  background-image: url(../../../images/fail.svg);
+  background-size: cover;
+}

@@ -1,0 +1,23 @@
+.sign__input {
+  border-style: none;
+  width: 100%;
+  padding: 0;
+  padding-bottom: 13px;
+  margin-bottom: 30px;
+  color: #CCCCCC;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  border-bottom: 2px solid #CCCCCC;
+  box-sizing: border-box;
+  background-color: #000;
+}
+.sign__input:focus-within {
+  outline: none;
+  background-color: #000;
+}
+.sign__input::selection {
+  background-color: #000;
+}

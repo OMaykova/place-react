@@ -1,0 +1,15 @@
+.header__link-container {
+  display: flex;
+  list-style-type: none;
+}
+@media screen and (max-width: 920px) {
+  .header__link-container {
+    margin-right: 10%;
+  }
+}
+@media screen and (max-width: 470px) {
+  .header__link-container {
+    flex-direction: column;
+    margin-right: 8.4%;
+  }
+}
