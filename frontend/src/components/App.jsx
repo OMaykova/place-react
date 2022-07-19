@@ -108,7 +108,7 @@ function App() {
     
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(i => i === currentUser._id);
     
     // Отправляем запрос в API и получаем обновлённые данные карточки
     const request = isLiked ?
@@ -147,7 +147,7 @@ function App() {
     mestoAuth.getContent()
       .then((data) => {
         if (data) {
-          setEmail(data.user.email);
+          setEmail(data.email);
           setLoggedIn(true);
           // history.push('/');
         }

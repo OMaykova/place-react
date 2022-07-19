@@ -2,14 +2,14 @@ import React from 'react';
 
 function Card({card, onClick, currentUserId, onCardLike, onCardDelete}) {
   // Определяем, являемся ли мы владельцем текущей карточки (boolean)
-  const isOwn = card.owner._id === currentUserId;
+  const isOwn = card.owner === currentUserId;
   // console.log(card.owner._id, currentUserId)
 
   const displayDeleteButton = {
     display: `${isOwn ? 'block' : 'none'}`
   }
   // Определяем, есть ли у карточки лайк, поставленный текущим пользователем
-  const isLiked = card.likes.some(i => i._id === currentUserId);
+  const isLiked = card.likes.some(i => i === currentUserId);
 
   // Создаём переменную, которую после зададим в `className` для кнопки лайка
   const cardLikeButtonClassName = `element__like ${isLiked ? 'element__like_active' : ''}` 
