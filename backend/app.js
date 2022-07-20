@@ -64,7 +64,7 @@ app.use('/', routerCard);
 app.use('*', () => {
   throw new NotFoundError('Страница не найдена');
 });
-app.use(errorLogger); // подключаем логгер ошибок
+// app.use(errorLogger); // подключаем логгер ошибок
 app.use(errors()); // обработчик ошибок celebrate
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
