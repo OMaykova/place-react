@@ -58,9 +58,9 @@ app.post('/signup', celebrate({
 }), createUser);
 app.get('/signout', signout);
 // авторизация
-// app.use(auth);
-app.use('/', auth, routerUser);
-app.use('/', auth, routerCard);
+app.use(auth);
+app.use('/', routerUser);
+app.use('/', routerCard);
 app.use('*', () => {
   throw new NotFoundError('Страница не найдена');
 });
