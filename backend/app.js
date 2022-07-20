@@ -16,9 +16,12 @@ const { PORT = 3001 } = process.env;
 const app = express();
 const allowedCors = {
   origin: [
+    'https://api.omaykova.nomoredomains.xyz',
+    'http://api.omaykova.nomoredomains.xyz/',
     'https://omaykova.nomoredomains.xyz',
     'http://omaykova.nomoredomains.xyz/',
     'http://localhost:3000',
+    'https://omaykova.github.io/',
   ],
   credentials: true, // эта опция позволяет устанавливать куки
 };
