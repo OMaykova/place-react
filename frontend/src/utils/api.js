@@ -83,8 +83,8 @@ class Api {
   }
   }
   export const api = new Api({
-    baseUrl: 'http://localhost:3001',
-    // baseUrl: `${window.location.protocol}${process.env.REACT_APP_API_URL || '//localhost:3001'}`,
+    // baseUrl: 'http://localhost:3001',
+    baseUrl: `${window.location.protocol}${process.env.REACT_APP_API_URL || '//localhost:3001'}`,
     headers: {
       // authorization: 'ae237eb9-5aba-4050-8c86-8e74ad63731d',
       'Content-Type': 'application/json'
