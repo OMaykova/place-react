@@ -16,7 +16,6 @@ module.exports = (req, res, next) => {
   try {
     // попытаемся верифицировать токен
     payload = isTokenValid(token);
-    console.log('payload', payload);
     User.findOne({ _id: payload._id })
       .then((user) => {
         if (!user) {
@@ -27,7 +26,6 @@ module.exports = (req, res, next) => {
       })
       .catch(next);
   } catch (err) {
-    console.log('auth err: ', err);
     // отправим ошибку, если не получилось
     next(new AuthorizationError(AuthorizationError.message));
   }
