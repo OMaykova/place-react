@@ -47,7 +47,7 @@ export const getContent = () => {
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
-      // 'Authorization': `Bearer ${token}`,
+      // 'Authorization': `Bearer ${token}`, для авторизации через токен
     }
   })
   .then(checkResponse)

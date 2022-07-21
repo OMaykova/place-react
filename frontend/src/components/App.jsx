@@ -10,7 +10,7 @@ import {CurrentUserContext} from '../contexts/CurrentUserContext';
 import {CardsContext} from '../contexts/CardsContext';
 import AddPlacePopup from './AddPlacePopup'
 import ImageDeleteConfirmPopup from './ImageDeleteConfirmPopup'
-import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import Login from './Login';
 import Register from './Register';
@@ -149,12 +149,10 @@ function App() {
         if (data) {
           setEmail(data.email);
           setLoggedIn(true);
-          // history.push('/');
         }
       })
       .catch((err) => {
         console.log(`Пользователь не авторизован ${err}`);
-        // history.push('/signin');
       });
   };
 
@@ -166,10 +164,9 @@ function App() {
     return mestoAuth.authorize(password, email)
     .then((data) => {
       if (data) {
-        // localStorage.setItem('jwt', data.token);
+        // localStorage.setItem('jwt', data.token); //авторизация через токен
         setLoggedIn(true);
         setEmail(email);
-        // checkAuth();
       } else {
         setTooltipStatus('fail')
       }
@@ -193,13 +190,13 @@ function App() {
     });
   }
   function handleSignOut() {
-    // localStorage.removeItem('jwt');
+    // localStorage.removeItem('jwt'); авторизация через токен
     mestoAuth.signout();
     setLoggedIn(false);
     setEmail(null);
     history.push('/signup');
   }
-
+  // авторизация через токен
   // function checkToken() {
   //   console.log('document.cookie', document.cookie)
   //   if (document.cookie){
@@ -229,7 +226,7 @@ function App() {
           <Header email={email} handleSignOut={handleSignOut}/>
           <Switch>
             <ProtectedRoute exact path='/' loggedIn={loggedIn}>
-            {/* checkToken={checkToken} */}
+            {/* checkToken={checkToken} для авторизации через токен*/} 
               <Main 
               onEditProfile={handleEditProfileClick} 
               onAddPlace={handleAddPlaceClick} 
