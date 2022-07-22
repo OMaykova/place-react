@@ -27,10 +27,8 @@ module.exports.createCard = (req, res, next) => {
 
 module.exports.deleteCard = (req, res, next) => {
   Card.findById(req.params.cardId)
+    .orFail(new NotFoundError('Карточка с указанным _id не найдена'))
     .then((card) => {
-      if (!card) {
-        throw new NotFoundError('Карточка с указанным _id не найдена');
-      }
       if (req.user._id.toString() !== card.owner.toString()) {
         throw new ForbiddenError(ForbiddenError.message);
       }
@@ -56,10 +54,8 @@ module.exports.setLikeCard = (req, res, next) => {
     { $addToSet: { likes: req.user._id } }, // добавить _id в массив, если его там нет
     { new: true },
   )
+    .orFail(new NotFoundError('Передан несуществующий _id карточки'))
     .then((card) => {
-      if (!card) {
-        throw new NotFoundError('Передан несуществующий _id карточки');
-      }
       res.status(200).send(card);
     })
     .catch((err) => {
@@ -78,10 +74,8 @@ module.exports.deleteLikeCard = (req, res, next) => {
     { $pull: { likes: req.user._id } }, // убрать _id из массива
     { new: true },
   )
+    .orFail(new NotFoundError('Передан несуществующий _id карточки'))
     .then((card) => {
-      if (!card) {
-        throw new NotFoundError('Передан несуществующий _id карточки');
-      }
       res.status(200).send(card);
     })
     .catch((err) => {

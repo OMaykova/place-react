@@ -1,15 +1,23 @@
+// Каират, привет! Огромное спасибо за супер полезные советы, все учла и учту
+// на будущее. Жаль, далеко не все ревью были такими, как ваше. Вам тоже успехов в работе!
+
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const { celebrate, Joi, errors } = require('celebrate');
+const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
+const { errors } = require('celebrate');
 const cors = require('cors');
 const routerUser = require('./routes/user');
 const routerCard = require('./routes/card');
+const signin = require('./routes/signin');
+const signup = require('./routes/signup');
 const NotFoundError = require('./errors/not-found-err');
-const { login, createUser, signout } = require('./controllers/user');
+const { signout } = require('./controllers/user');
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const centralizedErrorHandler = require('./middlewares/centralizedErrorHandler');
 require('dotenv').config();
 
 const { PORT = 3001 } = process.env;
@@ -26,6 +34,12 @@ const allowedCors = {
   ],
   credentials: true, // эта опция позволяет устанавливать куки
 };
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+});
 
 app.use('*', cors(allowedCors));
 app.use(cookieParser()); // подключаем парсер кук как мидлвэр
@@ -39,31 +53,17 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   if (err) throw err;
   console.log('Connected to MongoDB!!!');
 });
-
 app.use(requestLogger); // подключаем логгер запросов
-
+app.use(limiter); // ограничение запросов к сервер для защиты от DDOS
+app.use(helmet()); // настройка заголовкой HTTP от известных уязвимостей
 // краш-тест, отключить после ревью
 app.get('/crash-test', () => {
   setTimeout(() => {
     throw new Error('Сервер сейчас упадёт');
   }, 0);
 });
-
-app.post('/signin', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().required().min(3),
-  }),
-}), login);
-app.post('/signup', celebrate({
-  body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
-    about: Joi.string().min(2).max(30),
-    avatar: Joi.string().pattern(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/),
-    email: Joi.string().required().email(),
-    password: Joi.string().required().min(3),
-  }),
-}), createUser);
+app.use('/', signin);
+app.use('/', signup);
 app.get('/signout', signout);
 // авторизация
 app.use(auth);
@@ -74,22 +74,7 @@ app.use('*', () => {
 });
 app.use(errorLogger); // подключаем логгер ошибок
 app.use(errors()); // обработчик ошибок celebrate
-// eslint-disable-next-line no-unused-vars
-app.use((err, req, res, next) => {
-  // если у ошибки нет статуса, выставляем 500
-  const { statusCode = 500, message } = err;
-  res
-    .status(statusCode)
-    .send({
-    // проверяем статус и выставляем сообщение в зависимости от него
-      message: statusCode === 500
-        ? 'На сервере произошла ошибка'
-        : message,
-    });
-  if (statusCode === 500) {
-    console.log(err.stack);
-  }
-});
+app.use(centralizedErrorHandler); // централизованный обработчик ошибок
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
 });

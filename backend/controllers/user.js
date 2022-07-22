@@ -26,10 +26,8 @@ module.exports.getProfileUser = (req, res, next) => {
 
 module.exports.getUserByID = (req, res, next) => {
   User.findById(req.params.userId)
+    .orFail(new NotFoundError('Пользователь по указанному _id не найден'))
     .then((user) => {
-      if (!user) {
-        throw new NotFoundError('Пользователь по указанному _id не найден');
-      }
       res.status(200).send(user);
     })
     .catch((err) => {
@@ -79,10 +77,8 @@ module.exports.updateUser = (req, res, next) => {
     { name, about },
     { new: true, runValidators: true, upsert: false },
   )
+    .orFail(new NotFoundError('Пользователь по указанному _id не найден'))
     .then((user) => {
-      if (!user) {
-        throw new NotFoundError('Пользователь по указанному _id не найден');
-      }
       res.status(200).send(user);
     })
     .catch((err) => {
@@ -102,10 +98,8 @@ module.exports.updateAvatar = (req, res, next) => {
     { avatar },
     { new: true, runValidators: true, upsert: false },
   )
+    .orFail(new NotFoundError('Пользователь по указанному _id не найден'))
     .then((user) => {
-      if (!user) {
-        throw new NotFoundError('Пользователь по указанному _id не найден');
-      }
       res.status(200).send(user);
     })
     .catch((err) => {
