@@ -1,6 +1,3 @@
-// Каират, привет! Огромное спасибо за супер полезные советы, все учла и учту
-// на будущее. Жаль, далеко не все ревью были такими, как ваше. Вам тоже успехов в работе!
-
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -20,7 +17,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const centralizedErrorHandler = require('./middlewares/centralizedErrorHandler');
 require('dotenv').config();
 
-const { PORT = 3001 } = process.env;
+const { PORT = 3002 } = process.env;
 const app = express();
 const allowedCors = {
   origin: [
