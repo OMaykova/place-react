@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
   },
   avatar: {
     type: String,
-    default: 'https://www.yandex.ru/images/search?pos=7&from=tabbar&img_url=http%3A%2F%2Fsteamuserimages-a.akamaihd.net%2Fugc%2F1689373922258799610%2F2F1C93A051C73C080D34F041F52A0A4231A3D371%2F%3Fimw%3D512%26amp%3Bimh%3D288%26amp%3Bima%3Dfit%26amp%3Bimpolicy%3DLetterbox%26amp%3Bimcolor%3D%2523000000%26amp%3Bletterbox%3Dtrue&text=unknown&rpt=simage&lr=213',
+    default: 'https://cdn1.flamp.ru/2798b2d6136bf3171fa27ca2195b17e0.jpg',
     match: [/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/, 'Некорректно введен URL'],
   },
   email: {
