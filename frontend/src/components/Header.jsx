@@ -6,7 +6,7 @@ function Header({handleSignOut, email}) {
   const location = useLocation()
   return (
     <header className="header">
-      <img className="header__logo" src={headerLogo} alt="Логотип сайта с названием Место Россия" />
+      <img className="header__logo" src={headerLogo} alt="Логотип сайта с названием Place" />
       {location.pathname === '/signup' &&
         <Link to="/signin" className='header__link'>Войти</Link>}
       {location.pathname === '/signin' &&
