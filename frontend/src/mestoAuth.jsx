@@ -1,5 +1,5 @@
-// export const BASE_URL = `${window.location.protocol}${process.env.REACT_APP_API_URL || '//localhost:3001'}`;
-export const BASE_URL = 'http://localhost:3001';
+export const BASE_URL = `${window.location.protocol}${process.env.REACT_APP_API_URL || '//localhost:3002'}`;
+// export const BASE_URL = 'http://localhost:3002';
 const checkResponse = (res) => {
   if (res.ok) {
     return res.json();

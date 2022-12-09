@@ -27,6 +27,7 @@ const allowedCors = {
     'http://omaykova.nomoredomains.xyz',
     'http://localhost:3000',
     'http://localhost:3001',
+    'http://localhost:3002',
     'https://omaykova.github.io',
   ],
   credentials: true, // эта опция позволяет устанавливать куки
