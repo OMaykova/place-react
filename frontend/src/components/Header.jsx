@@ -1,5 +1,5 @@
 import React from 'react';
-import headerLogo from '../images/logoMesto.svg';
+import headerLogo from '../images/svg (1).svg';
 import { Link, useLocation } from "react-router-dom";
 
 function Header({handleSignOut, email}) {
