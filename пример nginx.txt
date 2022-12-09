@@ -1,10 +1,10 @@
 server {
         listen 80;
 
-        server_name api.filmoteka.nomoredomains.xyz;
+        server_name api.omaykova.nomoredomains.xyz;
 
         location / {
-                proxy_pass http://localhost:3001;
+                proxy_pass http://localhost:3002;
                 proxy_http_version 1.1;
                 proxy_set_header Upgrade $http_upgrade;
                 proxy_set_header Connection 'upgrade';
@@ -21,9 +21,9 @@ server {
 server {
         listen 80;
 
-        server_name filmoteka.nomoredomains.xyz; 
+        server_name omaykova.nomoredomains.xyz; 
 
-        root /home/omaykova/movies-explorer-frontend/build
+        root /home/ubuntu/mesto/react-mesto-api-full/frontend/build
         location / {
           try_files $uri $uri/ /index.html
         }

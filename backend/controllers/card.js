@@ -32,7 +32,7 @@ module.exports.deleteCard = (req, res, next) => {
       if (req.user._id.toString() !== card.owner.toString()) {
         throw new ForbiddenError(ForbiddenError.message);
       }
-      Card.deleteOne({ card })
+      Card.deleteOne(card)
         .then(() => {
           res.status(200).send({ message: 'Карточка удалена!' });
         })
